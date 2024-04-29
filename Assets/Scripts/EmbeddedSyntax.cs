@@ -2,13 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Scripting;
 
 public class EmbeddedSyntax : MonoBehaviour
 {
     public InputAction jumpAction;
     public InputAction moveAction;
+    public float speed;
 
     private bool exampleBool;
+
+    private Transform myTransform;
+
+    void Awake()
+    {
+        myTransform = GetComponent<Transform>();
+    }
 
     private void OnEnable()
     {
@@ -33,10 +42,12 @@ public class EmbeddedSyntax : MonoBehaviour
     }
 
     // Update is called once per frame
-    //void Update()
-    //{
-    //    Debug.Log(moveAction.ReadValue<Vector2>().normalized);
-    //}
+    void Update()
+    {
+        //Debug.Log(moveAction.ReadValue<Vector2>().normalized);
+
+        myTransform.position = myTransform.position + (Vector3)(moveAction.ReadValue<Vector2>().normalized * (speed * Time.deltaTime));
+    }
 
     private void Jump(InputAction.CallbackContext context)
     {
@@ -54,11 +65,13 @@ public class EmbeddedSyntax : MonoBehaviour
 
     private void Move(InputAction.CallbackContext context)
     {
-        Debug.Log(context.ReadValue<Vector2>().normalized);
+        //Debug.Log(context.ReadValue<Vector2>().normalized);
+        //myTransform.position = myTransform.position + (Vector3)(context.ReadValue<Vector2>().normalized * (speed * Time.deltaTime));
     }
 
     private void StopMove(InputAction.CallbackContext context)
     {
-        Debug.Log(context.ReadValue<Vector2>().normalized);
+        //Debug.Log(context.ReadValue<Vector2>().normalized);
+        //myTransform.position = myTransform.position + (Vector3)(context.ReadValue<Vector2>().normalized * (speed * Time.deltaTime));
     }
 }
