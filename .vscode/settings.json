@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "InputSystem.sln"
+    "dotnet.defaultSolution": "MD_M8_InputSystem.sln"
 }
