@@ -8,9 +8,11 @@ public class EmbeddedSyntax : MonoBehaviour
 {
     public InputAction jumpAction;
     public InputAction moveAction;
-    public float speed;
+    [SerializeField] private float speed;
 
     private bool exampleBool;
+
+    private Vector2 direction;
 
     private Transform myTransform;
 
@@ -46,7 +48,7 @@ public class EmbeddedSyntax : MonoBehaviour
     {
         //Debug.Log(moveAction.ReadValue<Vector2>().normalized);
 
-        myTransform.position = myTransform.position + (Vector3)(moveAction.ReadValue<Vector2>().normalized * (speed * Time.deltaTime));
+        myTransform.Translate(direction * (speed * Time.deltaTime));
     }
 
     private void Jump(InputAction.CallbackContext context)
@@ -66,12 +68,12 @@ public class EmbeddedSyntax : MonoBehaviour
     private void Move(InputAction.CallbackContext context)
     {
         //Debug.Log(context.ReadValue<Vector2>().normalized);
-        //myTransform.position = myTransform.position + (Vector3)(context.ReadValue<Vector2>().normalized * (speed * Time.deltaTime));
+        direction = context.ReadValue<Vector2>().normalized;
     }
 
     private void StopMove(InputAction.CallbackContext context)
     {
         //Debug.Log(context.ReadValue<Vector2>().normalized);
-        //myTransform.position = myTransform.position + (Vector3)(context.ReadValue<Vector2>().normalized * (speed * Time.deltaTime));
+        direction = context.ReadValue<Vector2>().normalized;
     }
 }
